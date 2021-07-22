@@ -13,9 +13,9 @@ interface TableProps<DataType> {
 }
 
 interface TableRowProps<ItemDataType> {
-  id?: string;
-  index: any;
-  children: ({ index: number, item: ItemDataType }) => ReactNode;
+  id?: keyof ItemDataType;
+  index ?: any;
+  children ?: ({ index: number, item: ItemDataType }) => ReactNode;
 }
 
 const dataTable = createContext({ data: [] });
@@ -45,7 +45,8 @@ export function Table<DataType>({ data, children }: TableProps<DataType>) {
   );
 }
 
-export function TableRow<DataType>({ id, index, children } : TableRowProps<DataType>) {
+export function TableRow<DataType>(props : TableRowProps<DataType>) {
+  const { id, index, children } = props;
   const { data } = useContext(dataTable);
   return (
     <td>
