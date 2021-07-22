@@ -1,4 +1,4 @@
-import {
+import React, {
   Children,
   cloneElement,
   createContext,
@@ -18,7 +18,7 @@ interface TableRowProps<ItemDataType> {
   children ?: ({ index: number, item: ItemDataType }) => ReactNode;
 }
 
-const dataTable = createContext({ data: [] });
+const dataTable = createContext<any>({ data: [] });
 
 export function Table<DataType>({ data, children }: TableProps<DataType>) {
   const cloneTdChildren = (index) => {

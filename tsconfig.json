@@ -1,6 +1,8 @@
 {
     "compilerOptions": {
         "module": "commonjs",
+        "types": [ "jest", "@testing-library/jest-dom" ],
+        "lib": [ "ES2015","DOM","DOM.Iterable" ],
         "target": "es5",
         "allowJs": true,
         "checkJs": false,
@@ -11,7 +13,7 @@
         "noEmit": true,
         "pretty": true,
         "skipLibCheck": true,
-        "strict": true,
+        "noImplicitAny": false,
         "moduleResolution": "node",
         "esModuleInterop": true
     },

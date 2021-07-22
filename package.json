@@ -6,6 +6,7 @@
   "scripts": {
     "build": "npx tsc",
     "storybook": "start-storybook -p 6006",
+    "test:watch": "jest --watch",
     "build-storybook": "build-storybook"
   },
   "keywords": [],
@@ -26,7 +27,12 @@
     "typescript": "^4.3.5"
   },
   "dependencies": {
+    "@testing-library/jest-dom": "^5.14.1",
+    "@testing-library/react": "^12.0.0",
+    "@types/jest": "^26.0.24",
+    "jest": "^27.0.6",
     "react": "^17.0.2",
-    "react-dom": "^17.0.2"
+    "react-dom": "^17.0.2",
+    "ts-jest": "^27.0.4"
   }
 }
