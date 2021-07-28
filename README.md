@@ -55,3 +55,22 @@ export function App() {
   );
 }
 ```
+
+BY default it is rendering the key inside the th. 
+Whatever is it. you can create a custom render method replacing the key value.
+
+```javascript
+export function App() {
+  return (
+    <div>
+      <Table data={mockData}>
+        <TableRow 
+         id="username"
+         renderHeader={() => {
+           return <button>Custom username</button>
+         }} />  
+      </Table>
+    </div>
+  );
+}
+```
