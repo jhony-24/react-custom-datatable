@@ -27,9 +27,9 @@ export function App() {
   return (
     <div>
       <Table data={mockData}>
-        <TableRow id="username" />
-        <TableRow id="age" />
-        <TableRow id="nationality" />
+        <TableRow rowId="username" />
+        <TableRow rowId="age" />
+        <TableRow rowId="nationality" />
       </Table>
     </div>
   );
@@ -43,9 +43,9 @@ export function App() {
   return (
     <div>
       <Table data={mockData}>
-        <TableRow id="username" />
-        <TableRow id="age" />
-        <TableRow id="nationality">
+        <TableRow rowId="username" />
+        <TableRow rowId="age" />
+        <TableRow rowId="nationality">
           {({ item }) => {
             return <img src={`/images/nationalities${item.nationality}.png`} />;
           }}
@@ -65,7 +65,7 @@ export function App() {
     <div>
       <Table data={mockData}>
         <TableRow 
-         id="username"
+         rowId="username"
          renderHeader={() => {
            return <button>Custom username</button>
          }} />  
