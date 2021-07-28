@@ -5,22 +5,28 @@ import React, {
   ReactElement,
   ReactNode,
   useContext,
+  HTMLProps,
+  TableHTMLAttributes
 } from "react";
 
-interface TableProps<DataType> {
+interface TableProps<DataType> extends TableHTMLAttributes<HTMLDivElement> {
   children: ReactNode;
   data: DataType[];
 }
 
-interface TableRowProps<ItemDataType> {
-  id?: keyof ItemDataType;
-  index ?: any;
-  children ?: ({ index: number, item: ItemDataType }) => ReactNode;
+interface TableRowProps<ItemDataType> extends HTMLProps<HTMLTableCellElement> {
+  rowId?: keyof ItemDataType;
+  index?: any;
+  children?: ({ index: number, item: ItemDataType }) => ReactNode;
 }
 
 const dataTable = createContext<any>({ data: [] });
 
-export function Table<DataType>({ data, children }: TableProps<DataType>) {
+export function Table<DataType>({
+  data,
+  children,
+  ...restProps
+}: TableProps<DataType>) {
   const cloneTdChildren = (index) => {
     return Children.map(children, (child) => {
       return cloneElement(child as ReactElement, {
@@ -30,7 +36,7 @@ export function Table<DataType>({ data, children }: TableProps<DataType>) {
   };
   return (
     <dataTable.Provider value={{ data }}>
-      <table>
+      <table {...restProps}>
         <tbody>
           <dataTable.Consumer>
             {(context) => {
@@ -45,17 +51,17 @@ export function Table<DataType>({ data, children }: TableProps<DataType>) {
   );
 }
 
-export function TableRow<DataType>(props : TableRowProps<DataType>) {
-  const { id, index, children } = props;
+export function TableRow<DataType>(props: TableRowProps<DataType>) {
+  const { rowId, index, children, ...restProps } = props;
   const { data } = useContext(dataTable);
   return (
-    <td>
+    <td {...restProps}>
       {children
         ? children({
             index,
             item: data[index],
           })
-        : data[index][id]}
+        : data[index][rowId]}
     </td>
   );
 }

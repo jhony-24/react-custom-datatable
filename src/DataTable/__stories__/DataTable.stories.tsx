@@ -25,8 +25,8 @@ const data : ItemType[] = [
 export const Default = () => {
   return(
     <Table data={data}>
-      <TableRow id="user" />
-      <TableRow id="age" />
+      <TableRow rowId="user" />
+      <TableRow rowId="age" />
     </Table>
   )
 }
