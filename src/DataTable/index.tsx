@@ -6,7 +6,7 @@ import React, {
   ReactNode,
   useContext,
   HTMLProps,
-  TableHTMLAttributes
+  TableHTMLAttributes,
 } from "react";
 
 interface TableProps<DataType> extends TableHTMLAttributes<HTMLDivElement> {
@@ -27,7 +27,11 @@ export function Table<DataType>({
   children,
   ...restProps
 }: TableProps<DataType>) {
-  const cloneTdChildren = (index) => {
+  const childrenProps = Children.map(children, (child) => {
+    return (child as ReactElement).props;
+  });
+
+  const cloneRowChildren = (index) => {
     return Children.map(children, (child) => {
       return cloneElement(child as ReactElement, {
         index,
@@ -37,11 +41,20 @@ export function Table<DataType>({
   return (
     <dataTable.Provider value={{ data }}>
       <table {...restProps}>
+        <thead>
+          {childrenProps.map((prop, index) => {
+            return (
+              <th key={index}>
+                {prop.renderHeader ? prop.renderHeader(data) : prop.rowId}
+              </th>
+            );
+          })}
+        </thead>
         <tbody>
           <dataTable.Consumer>
             {(context) => {
               return context.data.map((_item, index) => (
-                <tr key={index}>{cloneTdChildren(index)}</tr>
+                <tr key={index}>{cloneRowChildren(index)}</tr>
               ));
             }}
           </dataTable.Consumer>
