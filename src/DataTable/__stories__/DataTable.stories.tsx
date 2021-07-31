@@ -6,7 +6,6 @@ export default {
 };
 
 
-
 interface ItemType { 
   user: string;
   age: number;
@@ -27,6 +26,14 @@ export const Default = () => {
     <Table data={data}>
       <TableRow rowId="user" />
       <TableRow rowId="age" />
+      <TableRow 
+        renderHeader={(data) => {
+          return <i>total items {data.length}</i>
+        }} 
+        renderCell={() => {
+          return <button>delete</button>
+        }}
+      />
     </Table>
   )
 }

@@ -9,6 +9,8 @@ import React, {
   TableHTMLAttributes,
 } from "react";
 
+type FuncRenderItem<T> = (props:{ index: number, item: T }) => ReactNode;
+
 interface TableProps<DataType> extends TableHTMLAttributes<HTMLDivElement> {
   children: ReactNode;
   data: DataType[];
@@ -17,7 +19,9 @@ interface TableProps<DataType> extends TableHTMLAttributes<HTMLDivElement> {
 interface TableRowProps<ItemDataType> extends HTMLProps<HTMLTableCellElement> {
   rowId?: keyof ItemDataType;
   index?: any;
-  children?: ({ index: number, item: ItemDataType }) => ReactNode;
+  renderHeader?: FuncRenderItem<any>;
+  renderCell?: FuncRenderItem<ItemDataType>;
+  children?: FuncRenderItem<ItemDataType>;
 }
 
 const dataTable = createContext<any>({ data: [] });
@@ -65,16 +69,20 @@ export function Table<DataType>({
 }
 
 export function TableRow<DataType>(props: TableRowProps<DataType>) {
-  const { rowId, index, children, ...restProps } = props;
+  const { rowId, index, children, renderCell, ...restProps } = props;
   const { data } = useContext(dataTable);
-  return (
-    <td {...restProps}>
-      {children
-        ? children({
-            index,
-            item: data[index],
-          })
-        : data[index][rowId]}
-    </td>
-  );
+  const item = data[index];
+  const buildItem = {
+    index,
+    item
+  };
+  const content = (value) => <td {...restProps}>{value}</td>;
+
+  if (renderCell) {
+    return content(renderCell(buildItem));
+  }
+  if (children) {
+    return content(children(buildItem));
+  }
+  return content(item[rowId]);
 }
