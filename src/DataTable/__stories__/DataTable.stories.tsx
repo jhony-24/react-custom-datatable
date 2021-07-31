@@ -27,8 +27,8 @@ export const Default = () => {
       <TableRow rowId="user" />
       <TableRow rowId="age" />
       <TableRow 
-        renderHeader={(data) => {
-          return <i>total items {data.length}</i>
+        renderHeader={({ item }) => {
+          return <i>total items {item?.length}</i>
         }} 
         renderCell={() => {
           return <button>delete</button>

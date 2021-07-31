@@ -1,4 +1,4 @@
-import React, {
+import {
   Children,
   cloneElement,
   createContext,
@@ -9,17 +9,20 @@ import React, {
   TableHTMLAttributes,
 } from "react";
 
-type FuncRenderItem<T> = (props:{ index: number, item: T }) => ReactNode;
+type FuncRenderItem<T> = (props: { index: number; item: T }) => ReactNode;
 
 interface TableProps<DataType> extends TableHTMLAttributes<HTMLDivElement> {
   children: ReactNode;
   data: DataType[];
+  th?: HTMLProps<HTMLTableCellElement>;
+  thead?: HTMLProps<HTMLTableSectionElement>;
+  tbody?: HTMLProps<HTMLTableSectionElement>;
 }
 
 interface TableRowProps<ItemDataType> extends HTMLProps<HTMLTableCellElement> {
   rowId?: keyof ItemDataType;
-  index?: any;
-  renderHeader?: FuncRenderItem<any>;
+  index?: number;
+  renderHeader?: (props: { index: number; item: ItemDataType[] }) => ReactNode;
   renderCell?: FuncRenderItem<ItemDataType>;
   children?: FuncRenderItem<ItemDataType>;
 }
@@ -29,6 +32,9 @@ const dataTable = createContext<any>({ data: [] });
 export function Table<DataType>({
   data,
   children,
+  th: thProps,
+  thead: theadProps,
+  tbody: tbodyProps,
   ...restProps
 }: TableProps<DataType>) {
   const childrenProps = Children.map(children, (child) => {
@@ -45,16 +51,16 @@ export function Table<DataType>({
   return (
     <dataTable.Provider value={{ data }}>
       <table {...restProps}>
-        <thead>
+        <thead {...theadProps}>
           {childrenProps.map((prop, index) => {
             return (
-              <th key={index}>
+              <th {...thProps} key={index}>
                 {prop.renderHeader ? prop.renderHeader(data) : prop.rowId}
               </th>
             );
           })}
         </thead>
-        <tbody>
+        <tbody {...tbodyProps}>
           <dataTable.Consumer>
             {(context) => {
               return context.data.map((_item, index) => (
@@ -74,7 +80,7 @@ export function TableRow<DataType>(props: TableRowProps<DataType>) {
   const item = data[index];
   const buildItem = {
     index,
-    item
+    item,
   };
   const content = (value) => <td {...restProps}>{value}</td>;
 
