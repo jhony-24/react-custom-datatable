@@ -56,7 +56,7 @@ export function App() {
 }
 ```
 
-BY default it is rendering the key inside the th. 
+By default is rendering the key inside the th. 
 Whatever is it. you can create a custom render method replacing the key value.
 
 ```javascript

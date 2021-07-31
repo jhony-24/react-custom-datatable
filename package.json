@@ -1,7 +1,7 @@
 {
   "name": "react-custom-datatable",
   "version": "1.0.0",
-  "description": "",
+  "description": "Table component to render repeated data and customizable",
   "main": "index.js",
   "scripts": {
     "build": "npx tsc",
@@ -9,9 +9,13 @@
     "test:watch": "jest --watch",
     "build-storybook": "build-storybook"
   },
-  "keywords": [],
+  "keywords": [
+    "react",
+    "react-table",
+    "component"
+  ],
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "devDependencies": {
     "@babel/core": "^7.14.6",
     "@storybook/addon-actions": "^6.3.4",
