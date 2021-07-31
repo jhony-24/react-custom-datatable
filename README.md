@@ -2,6 +2,9 @@
 
 Table component to render repeated data and customizable.
 
+
+## Introduction
+
 Creating a mock data
 
 
@@ -74,3 +77,17 @@ export function App() {
   );
 }
 ```
+## API
+
+### ```Table```
+Props
+* **data**: Receive a array of object to render on the table
+* **th**: Add properties in th tag
+* **thead**: Add properties in thead tag
+* **tbody**: Add properties in tbody tag
+
+### ```TableRow```
+* **rowId**: Name of the object key.
+* **renderHeader**: Create a custom content inside the th tag otherwise it always show the rowId value.
+* **renderCell**: Replace the content inside the td tag.
+* **children**: Render a children prop with the current object data.
