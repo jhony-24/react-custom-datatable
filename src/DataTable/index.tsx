@@ -28,6 +28,7 @@ interface TableRowProps<ItemDataType> extends HTMLProps<HTMLTableCellElement> {
 }
 
 const dataTable = createContext<any>({ data: [] });
+const { Provider, Consumer } = dataTable;
 
 export function Table<DataType>({
   data,
@@ -49,7 +50,7 @@ export function Table<DataType>({
     });
   };
   return (
-    <dataTable.Provider value={{ data }}>
+    <Provider value={{ data }}>
       <table {...restProps}>
         <thead {...theadProps}>
           {childrenProps.map((prop, index) => {
@@ -61,16 +62,16 @@ export function Table<DataType>({
           })}
         </thead>
         <tbody {...tbodyProps}>
-          <dataTable.Consumer>
+          <Consumer>
             {(context) => {
               return context.data.map((_item, index) => (
                 <tr key={index}>{cloneRowChildren(index)}</tr>
               ));
             }}
-          </dataTable.Consumer>
+          </Consumer>
         </tbody>
       </table>
-    </dataTable.Provider>
+    </Provider>
   );
 }
 
