@@ -3,6 +3,15 @@
 Table component to render repeated data and customizable.
 
 
+## Installation
+```bash
+npm i react-custom-datatable
+```
+or
+```bash
+yarn add react-custom-datatable
+```
+
 ## Introduction
 
 Creating a mock data
@@ -26,6 +35,8 @@ const mockData = [
 Using the previous mock data.
 
 ```javascript
+import { Table, TableRow } from "react-custom-datatable";
+
 export function App() {
   return (
     <div>
@@ -42,6 +53,8 @@ export function App() {
 Sometimes we need to personalize a value. Then it is better use a render prop. For example, display the image according to nationality.
 
 ```javascript
+import { Table, TableRow } from "react-custom-datatable";
+
 export function App() {
   return (
     <div>
@@ -63,6 +76,8 @@ By default is rendering the key inside the th.
 Whatever is it. you can create a custom render method replacing the key value.
 
 ```javascript
+import { Table, TableRow } from "react-custom-datatable";
+
 export function App() {
   return (
     <div>
